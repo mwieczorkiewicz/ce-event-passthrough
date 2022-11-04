@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ce-event-passthrough
+spec:
+  template:
+    spec:
+      containers:
+        - image: mwieczorkiewicz/ce-event-passthrough:latest

@@ -46,7 +46,7 @@ func (e *Events) AddEvent(event cloudevents.Event) {
 
 // display prints the given Event in a human-readable format.
 func display(event cloudevents.Event) (*event.Event, protocol.Result) {
-	logger.Debug("evt_rcv", zap.Any("ce_evt", event))
+	logger.Info("evt_rcv", zap.Any("ce_evt", event), zap.String("content_type", event.DataContentType()))
 	fmt.Printf("\n🚀  received cloudevents.Event\n%s", event)
 	go events.AddEvent(event)
 	return rebuildEvent(event)

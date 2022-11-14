@@ -6,4 +6,4 @@ spec:
   template:
     spec:
       containers:
-        - image: mwieczorkiewicz/ce-event-passthrough:latest
+        - image: mwieczorkiewicz/ce-event-passthrough:logging

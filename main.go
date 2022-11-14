@@ -45,7 +45,7 @@ func (e *Events) AddEvent(event cloudevents.Event) {
 }
 
 // display prints the given Event in a human-readable format.
-func display(event cloudevents.Event) (*event.Event, protocol.Result) {
+func display(ctx context.Context, event cloudevents.Event) (*event.Event, protocol.Result) {
 	logger.Info("evt_rcv", zap.Any("ce_evt", event), zap.String("content_type", event.DataContentType()))
 	fmt.Printf("\n🚀  received cloudevents.Event\n%s", event)
 	go events.AddEvent(event)
@@ -56,6 +56,9 @@ func rebuildEvent(event cloudevents.Event) (*event.Event, error) {
 	var v interface{}
 	clone := event.Clone()
 	err := json.Unmarshal(event.Data(), &v)
+	if err != nil {
+		return nil, err
+	}
 	err = clone.SetData(cloudevents.ApplicationJSON, v)
 	return &clone, err
 }
